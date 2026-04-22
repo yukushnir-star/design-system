@@ -14,7 +14,8 @@
     "prestorybook": "npm run tokens:build",
     "storybook": "storybook dev -p 6006",
     "prebuild-storybook": "npm run tokens:build",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "chromatic": "npx chromatic --project-token=chpt_00140df4a8b0dd2"
   },
   "dependencies": {
     "react": "^19.2.5",
@@ -33,6 +34,7 @@
     "@vitejs/plugin-react": "^6.0.1",
     "@vitest/browser-playwright": "^4.1.5",
     "@vitest/coverage-v8": "^4.1.5",
+    "chromatic": "^16.5.0",
     "eslint": "^9.39.4",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.2",
