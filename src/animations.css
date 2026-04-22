@@ -1,0 +1,11 @@
+/* Shared component animations. Kept out of tokens.json because keyframes
+   aren't tokens — they're motion definitions that tokens reference. */
+
+@keyframes button-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes button-skeleton-pulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.5; }
+}
