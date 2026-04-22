@@ -15,7 +15,7 @@
     "storybook": "storybook dev -p 6006",
     "prebuild-storybook": "npm run tokens:build",
     "build-storybook": "storybook build",
-    "chromatic": "npx chromatic --project-token=chpt_00140df4a8b0dd2"
+    "chromatic": "npx chromatic"
   },
   "dependencies": {
     "react": "^19.2.5",

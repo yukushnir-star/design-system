@@ -1,0 +1,38 @@
+name: Chromatic
+
+# Runs on every push and pull request so Chromatic can diff the Storybook
+# build against its baselines and post a status check on GitHub.
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  chromatic:
+    name: Run Chromatic
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          # Chromatic needs full git history to compute baselines and TurboSnap.
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Publish to Chromatic
+        uses: chromaui/action@latest
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          # Automatically mark the `main` branch build as the accepted baseline,
+          # so PRs are diffed against it without manual approval there.
+          autoAcceptChanges: main
+          exitOnceUploaded: true
