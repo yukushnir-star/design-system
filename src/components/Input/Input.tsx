@@ -3,19 +3,58 @@ import React, { useState } from 'react';
 type InputState = 'default' | 'hover' | 'focused' | 'filled' | 'disabled' | 'error';
 
 export interface InputProps {
-  /** Field label shown above the input */
+  /**
+   * Field label rendered above the input. Pass an empty string to hide the label
+   * (prefer `aria-label` on the native element in that case for accessibility).
+   *
+   * @default "Label"
+   * @example <Input label="Email address" />
+   */
   label?: string;
-  /** Placeholder text shown when empty */
+
+  /**
+   * Placeholder text shown inside the input while it is empty.
+   *
+   * @default "Placeholder"
+   */
   placeholder?: string;
-  /** Helper text shown below the input */
+
+  /**
+   * Helper text rendered below the input. Automatically hidden when `errorMessage` is set.
+   *
+   * @default "Hint text goes here"
+   * @example <Input hint="We'll never share your email." />
+   */
   hint?: string;
-  /** Error message — replaces hint and triggers error state */
+
+  /**
+   * Error message rendered below the input. When set, replaces `hint`, paints the border red,
+   * and switches the label color to the error token.
+   *
+   * @example <Input errorMessage="Please enter a valid email." />
+   */
   errorMessage?: string;
-  /** Disables the input */
+
+  /**
+   * Disables the input — blocks interaction, applies the disabled token palette,
+   * and sets `cursor: not-allowed`.
+   *
+   * @default false
+   */
   disabled?: boolean;
-  /** Controlled value */
+
+  /**
+   * Controlled value. Pair with `onChange` for fully-controlled usage; omit both for uncontrolled.
+   *
+   * @example <Input value={email} onChange={setEmail} />
+   */
   value?: string;
-  /** onChange callback */
+
+  /**
+   * Callback fired when the user types. Receives the raw string value (not the DOM event).
+   *
+   * @param value The new input value.
+   */
   onChange?: (value: string) => void;
 }
 

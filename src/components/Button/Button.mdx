@@ -1,0 +1,104 @@
+import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks';
+import * as ButtonStories from './Button.stories';
+
+<Meta of={ButtonStories} />
+
+# Button
+
+A pill-shaped action trigger with ten visual states. The primary interactive element of the
+design system — use it wherever the user commits to an action, confirms a decision, or moves
+forward in a flow.
+
+<Canvas of={ButtonStories.Default} />
+
+---
+
+## When to use
+
+- Committing to an action (**Save**, **Submit**, **Delete**, **Continue**).
+- Opening a dialog, drawer, or secondary flow.
+- Confirming a destructive operation — use the `error` variant.
+- Rendering a toggle-pressed state — use the `selected` variant.
+
+## When **not** to use
+
+- **Navigating between pages.** Use a link, not a button. Buttons are for actions; links are for navigation.
+- **Inline text affordances.** Inside a paragraph, an underlined text link is lighter-weight and more scannable.
+- **Pure presentation.** If nothing happens on click, it is not a button.
+
+---
+
+## Anatomy
+
+| Part | Notes |
+| ---- | ----- |
+| Label | Required visible text unless `aria-label` is set. 16px medium. |
+| Trailing icon | Optional, 16×16, uses `currentColor`. Toggled via `showIcon`. |
+| Surface | Pill (fully rounded), min-height 56px, padding 16/24. |
+
+---
+
+## Variants
+
+The same component handles all ten states — no sub-components. Pick a variant by setting the matching
+prop: `disabled`, `loading`, `error`, `selected`, `skeleton`, `empty`. Interaction states
+(`hover`, `active`, `focused`) resolve automatically from the user's pointer and keyboard.
+
+<Canvas of={ButtonStories.Default} />
+<Canvas of={ButtonStories.Hover} />
+<Canvas of={ButtonStories.Active} />
+<Canvas of={ButtonStories.Focused} />
+<Canvas of={ButtonStories.Disabled} />
+<Canvas of={ButtonStories.Loading} />
+<Canvas of={ButtonStories.ErrorState} />
+<Canvas of={ButtonStories.Empty} />
+<Canvas of={ButtonStories.Skeleton} />
+<Canvas of={ButtonStories.Selected} />
+
+---
+
+## Props
+
+<Controls />
+
+---
+
+## Do's
+
+- ✅ **Use one primary button per view.** The primary action should be visually dominant; everything
+  else should be secondary or tertiary.
+- ✅ **Write action verbs.** Prefer `Save changes`, `Delete account`, `Send invite` over `OK` / `Submit`.
+- ✅ **Use the `error` variant for destructive actions.** Red-filled buttons signal irreversibility.
+- ✅ **Show `loading` during async work.** The dimmed "Loading…" label signals the system is working
+  and prevents double-submission.
+- ✅ **Provide `aria-label` on icon-only buttons.** Screen readers need a name.
+- ✅ **Use `skeleton` while content is fetching.** Keeps layout stable and avoids flicker.
+
+## Don'ts
+
+- ❌ **Don't stack two primary buttons side-by-side.** Pick a primary, make the others secondary.
+- ❌ **Don't use `error` for non-destructive actions.** Red carries semantic weight — reserve it for
+  delete, revoke, and similar.
+- ❌ **Don't pass `forceState` in production code.** It's a Storybook-only escape hatch for showcasing
+  hover/active/focused states. In real code, let the component derive state from user interaction.
+- ❌ **Don't override the radius, height, or padding inline.** Buttons that don't match the system
+  visually signal that something is wrong. If you need a different size, request a new variant.
+- ❌ **Don't use the `empty` variant as a clickable button.** It's a layout placeholder, not an action.
+- ❌ **Don't nest a `<Button>` inside an `<a>` or another `<button>`.** Invalid HTML and breaks
+  assistive tech.
+
+---
+
+## Accessibility
+
+- Renders a native `<button>` — inherits full keyboard support (Enter and Space activate).
+- Focus ring: 2px solid interactive-primary outline in the `focused` state. Never remove it.
+- Sets `aria-busy="true"` automatically during `loading`.
+- Sets `aria-pressed="true"` automatically during `selected` (toggle semantics).
+- When there is no visible text, provide `aria-label` so screen readers can announce the action.
+
+---
+
+## All stories
+
+<Story of={ButtonStories.DefaultNoIcon} />

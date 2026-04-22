@@ -34,31 +34,108 @@ const DefaultIcon: React.FC = () => (
 );
 
 export interface ButtonProps {
-  /** Button label / content. Defaults to "Label" to mirror the Figma source. */
+  /**
+   * Button label or content. Accepts a string or any React node (e.g. an icon + text combo).
+   * Mirrors the `Label` text property from the Figma source.
+   *
+   * @default "Label"
+   * @example <Button>Save changes</Button>
+   */
   children?: React.ReactNode;
-  /** Click handler */
+
+  /**
+   * Handler fired when the button is clicked. Not called while `disabled`, `loading`, or `skeleton`.
+   *
+   * @example <Button onClick={() => setOpen(true)}>Open dialog</Button>
+   */
   onClick?: () => void;
-  /** Native button type */
+
+  /**
+   * Native HTML button type. Set to `"submit"` inside a `<form>` to trigger form submission.
+   *
+   * @default "button"
+   */
   type?: 'button' | 'submit' | 'reset';
-  /** Disables the button and blocks interaction */
+
+  /**
+   * Disables the button: prevents interaction, applies the disabled token palette,
+   * and sets `cursor: not-allowed`.
+   *
+   * @default false
+   */
   disabled?: boolean;
-  /** Shows "Loading…" with dimmed opacity and blocks interaction (matches Figma Loading variant) */
+
+  /**
+   * Renders the `Loading…` label at reduced opacity and blocks interaction.
+   * Matches the Figma `Loading` variant. Sets `aria-busy="true"`.
+   *
+   * @default false
+   * @example <Button loading>Saving</Button>
+   */
   loading?: boolean;
-  /** Destructive / error variant (red background) */
+
+  /**
+   * Destructive / error variant — paints the button with the error background color.
+   * Use for irreversible actions like "Delete".
+   *
+   * @default false
+   * @example <Button error>Delete account</Button>
+   */
   error?: boolean;
-  /** Toggle-pressed / selected state (matches Figma Selected variant) */
+
+  /**
+   * Renders the toggle-pressed / selected state (darker fill, `aria-pressed="true"`).
+   * Use for buttons that represent a binary on/off choice.
+   *
+   * @default false
+   */
   selected?: boolean;
-  /** Render as a skeleton placeholder — gray pill with inner bar */
+
+  /**
+   * Renders as a placeholder while content loads — gray pill with an inner bar and a pulse animation.
+   * Interaction is blocked.
+   *
+   * @default false
+   */
   skeleton?: boolean;
-  /** Empty-state placeholder (bg-tertiary, 1px default border, disabled-colored text, no icon) */
+
+  /**
+   * Empty-state placeholder — tertiary background, 1px default border, disabled-colored text, no icon.
+   * Intended for empty slots in a layout, not as a clickable button.
+   *
+   * @default false
+   */
   empty?: boolean;
-  /** Show the trailing icon. Matches Figma `showIcon` property. Default true. */
+
+  /**
+   * Show the trailing icon. Maps to Figma's `showIcon` property.
+   * Only applies to `default`, `hover`, `active`, `focused`, and `error` states.
+   *
+   * @default true
+   */
   showIcon?: boolean;
-  /** Icon to render. Defaults to a chevron-right arrow. */
+
+  /**
+   * Custom icon node to render in the trailing slot. Falls back to the built-in chevron-right arrow.
+   * Icons should be 16×16 and use `currentColor` so they inherit the button's text color.
+   *
+   * @example <Button icon={<DownloadIcon />}>Export</Button>
+   */
   icon?: React.ReactNode;
-  /** Force visual state — used in docs/stories; overrides interaction-derived states. */
+
+  /**
+   * Force a visual state — bypasses interaction-derived state tracking.
+   * Used exclusively in Storybook stories to display hover / active / focused states statically.
+   * Do not use in production code.
+   */
   forceState?: 'hover' | 'active' | 'focused';
-  /** Accessible label (useful when the button has no visible text) */
+
+  /**
+   * Accessible label for the button. Required when the button has no visible text
+   * (e.g. icon-only buttons) so screen readers can announce its purpose.
+   *
+   * @example <Button aria-label="Close dialog"><CloseIcon /></Button>
+   */
   'aria-label'?: string;
 }
 
